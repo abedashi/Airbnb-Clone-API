@@ -4,9 +4,6 @@
   header('Content-Type: application/json');
   header('Access-Control-Allow-Methods: POST');
   header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
-  if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    exit('ok');
-  }
 
   require_once '../../vendor/autoload.php';
   use Firebase\JWT\JWT;
@@ -24,16 +21,15 @@
     $data = json_decode(file_get_contents("php://input"));
 
     // Validate input fields
-    if (empty($data->fname) || empty($data->lname) 
-        || empty($data->email) || empty($data->password)) {
+    if (empty($data->username) || empty($data->password) 
+        || empty($data->passwordConfirm) || empty($data->term)) {
       throw new Exception("Please enter all fields");
     }
 
-    $user->role = $data->role;
-    $user->fname = $data->fname;
-    $user->lname = $data->lname;
-    $user->email = $data->email;
+    $user->username = $data->username;
     $user->password = $data->password;
+    $user->passwordConfirm = $data->passwordConfirm;
+    $user->term = $data->term;
 
 
     // Register user
@@ -48,8 +44,7 @@
         'nbf' => $iat,
         'exp' => $iat + 259200000, // 3 days
         'data' => [
-          "id" => $insertID,
-          "role" => $user->role
+          "id" => $insertID
         ]
       ];
       $token = JWT::encode($payload, $key, 'HS256');
@@ -58,8 +53,7 @@
       echo json_encode(
         array(
           "id" => $insertID,
-          "full_name" => $user->fname ." ".$user->lname,
-          "email" => $user->email,
+          "username" => $user->username,
           "token" => $token
         )
       );
