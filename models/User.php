@@ -14,14 +14,12 @@ class User {
   public $location;
   public $language;
   public $joined_in;
-  public $term;
 
   public function __construct($db) {
     $this->conn = $db;
   }
 
   public function register() {
-
     // Check if email is taken
     $query = $this->conn->prepare(
       "SELECT username FROM {$this->table} WHERE username = ?"
@@ -35,19 +33,19 @@ class User {
     if ($query->num_rows > 0) {
       throw new Exception("Email already exists");
     }
-    if ($this->$password !== $this->$passwordConfirm) {
+    if ($this->password !== $this->passwordConfirm) {
       throw new Exception("Password and Password Confirmation didn't matched");
     }
     // Create query and prepare to register user
     $query = $this->conn->prepare(
-      "INSERT INTO {$this->table} VALUES (NULL, ?, ?, ?)"
+      "INSERT INTO {$this->table} VALUES (NULL, ?, ?)"
     );
 
     // Hash password
     $this->password = password_hash($this->password, PASSWORD_BCRYPT);
 
     // Bind data
-    $query->bind_param("ssb", $this->username ,$this->password, $this->term);
+    $query->bind_param("ss", $this->username ,$this->password);
 
     // Execute Query
     if ($query->execute()) {
