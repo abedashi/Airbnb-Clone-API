@@ -22,15 +22,13 @@
 
     // Validate input fields
     if (empty($data->username) || empty($data->password) 
-        || empty($data->passwordConfirm) || empty($data->term)) {
+        || empty($data->passwordConfirm)) {
       throw new Exception("Please enter all fields");
     }
 
     $user->username = $data->username;
     $user->password = $data->password;
     $user->passwordConfirm = $data->passwordConfirm;
-    $user->term = $data->term;
-
 
     // Register user
     if ($insertID = $user->register()) {
