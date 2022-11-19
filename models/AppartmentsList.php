@@ -39,7 +39,7 @@ class AppartmentsList {
 
     public function get() {
         // Preapare statment
-        $query = $this->conn-prepare(
+        $query = $this->conn->prepare(
             "SELECT * FROM {$this->table}
                 JOIN users ON appartments_list.userId = users.id
                 JOIN coordinates ON appartments_list.id = coordinates.appartment_id

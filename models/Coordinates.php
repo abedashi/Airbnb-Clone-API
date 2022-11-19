@@ -15,7 +15,7 @@ class Coordinates {
 
     public function create() {
         // Prepare statment
-        $query->conn->prepare(
+        $query = $this->conn->prepare(
             "INSERT INTO {$this->table} VALUES (NULL, ?, ?, ?)"
         );
 
