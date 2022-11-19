@@ -4,7 +4,7 @@
         private $host = "localhost";
         private $username = "root";
         private $password = "";
-        private $db = "RSP";
+        private $db = "rsp";
         private $conn;
 
         //DB Connect
