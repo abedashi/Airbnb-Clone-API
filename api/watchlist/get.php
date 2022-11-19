@@ -16,7 +16,7 @@
 
     try {
       // Protect route
-      require '../../config/Protect.php';
+      require '../../config/protect.php';
 
       $watchlist->appartment_id = htmlspecialchars($_GET["appartment_id"]);
 
