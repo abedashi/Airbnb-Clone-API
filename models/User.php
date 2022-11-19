@@ -35,7 +35,7 @@ class User {
     if ($query->num_rows > 0) {
       throw new Exception("Email already exists");
     }
-    if ($this->$password !== $this->$passwordConfirm) {
+    if ($this->password !== $this->passwordConfirm) {
       throw new Exception("Password and Password Confirmation didn't matched");
     }
     // Create query and prepare to register user
