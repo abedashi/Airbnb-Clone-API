@@ -21,7 +21,7 @@
     // Validate token
     $decoded = JWT::decode($token, new Key($key, 'HS256'));
 
-    $user_id = $decoded->data->id;
+    $userId = $decoded->data->id;
     
   }
   catch (Exception $e) {
