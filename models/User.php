@@ -38,7 +38,7 @@ class User {
     }
     // Create query and prepare to register user
     $query = $this->conn->prepare(
-      "INSERT INTO {$this->table} VALUES (NULL, ?, ?)"
+      "INSERT INTO {$this->table} (username, password) VALUES (?, ?)"
     );
 
     // Hash password
