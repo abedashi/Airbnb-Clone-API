@@ -4,7 +4,10 @@
   header('Content-Type: application/json');
   header('Access-Control-Allow-Methods: POST');
   header('Access-Control-Allow-Headers: Accept, Origin, Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
-  header('Access-Control-Allow-Headers: ');
+  // header('Access-Control-Allow-Headers: ');
+  if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    exit('ok');
+  }
 
   require '../../vendor/autoload.php';
   use Firebase\JWT\JWT;
@@ -18,25 +21,13 @@
   $user = new User($db);
 
   try {
-    // this.URL = "http://localhost/angular/WEBSERVICE_PHP/test.php";
-
-    // const headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
-    // let data = 'visitor_id=55';
-
-    // return this.http
-    // .post(this.URL,JSON.stringify(data),{
-    //     headers: headers
-    // })
-    // .map( Response => console.log(Response) );
-    // Get posted data
     $data = json_decode(file_get_contents("php://input"));
 
-    if(empty($data->email) || empty($data->password)) {
+    if(empty($data->username) || empty($data->password)) {
       throw new Exception("Please enter all fields");
     }
 
-    $user->email = $data->email;
+    $user->username = $data->username;
     $user->password = $data->password;
     
     if ($user->login()) {
