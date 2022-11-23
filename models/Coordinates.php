@@ -16,7 +16,7 @@ class Coordinates {
     public function create() {
         // Prepare statment
         $query = $this->conn->prepare(
-            "INSERT INTO {$this->table} VALUES (NULL, ?, ?, ?)"
+            "INSERT INTO {$this->table} (appartment_id, lat, lng) VALUES (?, ?, ?)"
         );
 
         $query->bind_param("idd", $this->appartment_id, $this->lat, $this->lng);

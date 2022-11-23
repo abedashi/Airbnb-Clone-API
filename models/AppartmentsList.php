@@ -1,7 +1,7 @@
 <?php
 class AppartmentsList {
     private $conn;
-    private $table = "appartmentslist";
+    private $table = "appartments_list";
 
     // Appartment-list props
     public $id;
@@ -13,7 +13,7 @@ class AppartmentsList {
     public $bedroom;
     public $bed;
     public $bath;
-    public $created_at;
+    // public $created_at;
 
     public function __construct($db) {
         $this->conn = $db;
@@ -22,12 +22,14 @@ class AppartmentsList {
     public function create() {
         //Prepare statment
         $query = $this->conn->prepare(
-            "INSERT INTO {$this->table} VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO {$this->table}
+                (userId, appName, address, guests, price, bedroom, bed, bath)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
         );
 
-        $query->bind_param("issiiiiis",
+        $query->bind_param("issiiiii",
             $this->userId, $this->appName, $this->address, $this->guests,
-            $this->price, $this->bedroom, $this->bed, $this->bath, $this->created_at
+            $this->price, $this->bedroom, $this->bed, $this->bath
         );
 
         if ($query->execute()) {

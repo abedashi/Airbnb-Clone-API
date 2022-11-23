@@ -19,17 +19,20 @@ class Offers {
     public function create() {
         // Prepare statment
         $query = $this->conn->prepare(
-            "INSERT INTO {$this->table} VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO {$this->table}
+                (appartment_id, wifi, parking, tv, ac, smoke, electricity)
+                VALUES (?, ?, ?, ?, ?, ?, ?)"
         );
 
-        $query->bind_param("ibbbbbb",
+        $query->bind_param("issssss",
             $this->appartment_id, $this->wifi, $this->parking,
             $this->tv, $this->ac, $this->smoke, $this->electricity
         );
 
         if ($query->execute()) {
-            $result = $query->get_result();
-            return $result;
+            return $query->insert_id;
+        } else {
+            return false;
         }
     }
 }

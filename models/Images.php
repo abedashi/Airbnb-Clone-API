@@ -18,10 +18,13 @@ class Images {
     public function create() {
         // Prepare statment
         $query = $this->conn->prepare(
-            "INSERT INTO {$this->table} VALUES (NULL, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO {$this->table} (appartment_id, image1, image2, image3, image4, image5) VALUES (?, ?, ?, ?, ?, ?)"
         );
 
-        $query->bind_param("isssss");
+        $query->bind_param("isssss",
+            $this->appartment_id, $this->image1, $this->image2,
+            $this->image3, $this->image4, $this->image5
+        );
         if ($query->execute()) {
             return $query->insert_id;
         } else {
