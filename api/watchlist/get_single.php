@@ -16,8 +16,12 @@
   try {
 
     require '../../config/protect.php';
+    // get id
+    // change from htmlspecialchars to isset if id or die 
+    //....../?rooms=2&abc=3...
 
-    $watchlist->appartment_id = htmlspecialchars($_GET["appartment_id"]);
+    $watchlist->userId = $userId;
+    $watchlist->appartment_id = isset($_GET["appartment_id"]) ? $_GET["appartment_id"] : die();
 
     if($result = $watchlist->getSingle()) {
       $response = [];
