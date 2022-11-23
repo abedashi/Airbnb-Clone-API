@@ -17,7 +17,7 @@
     try {
       // Protect route
       require '../../config/protect.php';
-
+      
       $watchlist->appartment_id = htmlspecialchars($_GET["appartment_id"]);
 
       if($result = $watchlist->get()) {
