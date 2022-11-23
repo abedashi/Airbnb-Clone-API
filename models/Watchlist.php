@@ -14,7 +14,7 @@ class WatchList {
 
     public function create() {
         $query = $this->conn->prepare(
-            "INSERT INTO {$this->table} VALUES (NULL, ?, ?)"
+            "INSERT INTO {$this->table} (userId, appartment_id) VALUES ( ?, ?)"
         );
 
         $query->bind_param("ii", $this->userId, $this->appartment_id);
@@ -47,7 +47,7 @@ class WatchList {
                  WHERE watch_list.appartment_id = ? AND watch_list.userId = ? 
                  ORDER BY appartments_list.created_at DESC"
         );
-        $query->bind_param('i', $this->appartment_id, $this->userID);
+        $query->bind_param('ii', $this->appartment_id, $this->userID);
         $query->execute();
         $result = $query->get_result();
 
