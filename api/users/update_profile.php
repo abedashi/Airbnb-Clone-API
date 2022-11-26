@@ -23,7 +23,6 @@
     $data = json_decode(file_get_contents("php://input"));
 
     $user->id = $userId;
-    $user->image = $data->image;
     $user->job = $data->job;
     $user->about = $data->about;
     $user->location = $data->location;
