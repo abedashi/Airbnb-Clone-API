@@ -37,7 +37,7 @@ class User {
       "UPDATE {$this->table} SET job= ?, about= ?, location= ?, language= ? WHERE id= ? "
     );
 
-    $query->bind_param("sssssi", $this->image, $this->job, $this->about, $this->location, $this->language, $this->id);
+    $query->bind_param("ssssi", $this->job, $this->about, $this->location, $this->language, $this->id);
     $query->execute();
 
     if ($query->affected_rows > 0) {
