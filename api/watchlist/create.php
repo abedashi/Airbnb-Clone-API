@@ -18,20 +18,17 @@
     // Protect route
     require '../../config/protect.php';
 
-    // Get posted data
-    $data = json_decode(file_get_contents("php://input"));
-
+    // Get posted data?appartment_id=2
+    $watchlist->appartment_id = htmlspecialchars($_GET["appartment_id"]);
     $watchlist->userId = $userId;
-    $watchlist->appartment_id = $data->appartment_id;
-
-
+    
     if ($insertId = $watchlist->create()) {
       $watchlist->id = $insertId;
 
-      $response = $watchlist->getSingle();
+      // $response = $watchlist->get();
 
       http_response_code(201);
-      echo json_encode($response->fetch_assoc());
+      // echo json_encode($response->fetch_assoc());
     } else {
       throw new Exception("watchlist Failed");
     }
