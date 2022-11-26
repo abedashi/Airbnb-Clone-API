@@ -63,7 +63,7 @@ class AppartmentsList {
         $query = $this->conn->prepare(
             "SELECT appartments_list.id, username, appName, address, guests, price, bedroom, bed, bath,
                 lat, lng, wifi, parking, tv, ac, smoke, electricity, created_at,
-                image1, image2, image3, image4, image5
+                image1, image2, image3, image4, image5, users.image
             FROM {$this->table}
                 JOIN users ON appartments_list.userId = users.id
                 JOIN coordinates ON appartments_list.id = coordinates.appartment_id
