@@ -19,6 +19,46 @@ class User {
     $this->conn = $db;
   }
 
+  public function updateImage() {
+    $query = $this->conn->prepare(
+      "UPDATE {$this->table} SET image= ? WHERE id= ?"
+    );
+    $query->bind_param("si", $this->image, $this->id);
+    $query->execute();
+
+    if ($query->affected_rows > 0) {
+      return true;
+    }
+    return false;
+  }
+
+  public function updateProfile() {
+    $query = $this->conn->prepare(
+      "UPDATE {$this->table} SET job= ?, about= ?, location= ?, language= ? WHERE id= ? "
+    );
+
+    $query->bind_param("sssssi", $this->image, $this->job, $this->about, $this->location, $this->language, $this->id);
+    $query->execute();
+
+    if ($query->affected_rows > 0) {
+      return true;
+    }
+    return false;
+  }
+
+  public function getProfile() {
+    $query = $this->conn->prepare(
+      "SELECT users.id, username, image, job, about, location, language, joined_in FROM {$this->table} 
+        WHERE users.id = ?"
+    );
+
+    $query->bind_param('i', $this->id);
+    $query->execute();
+    $result = $query->get_result();
+
+    return $result;
+  }
+
   public function register() {
     // Check if email is taken
     $query = $this->conn->prepare(
@@ -92,4 +132,3 @@ class User {
     return false;
   }
 }
-?>
