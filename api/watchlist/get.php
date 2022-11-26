@@ -4,6 +4,9 @@
   header('Content-Type: application/json');
   header('Access-Control-Allow-Methods: GET');
   header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+  if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    exit('ok');
+  }
 
   require_once '../../config/Database.php';
   require_once '../../models/Watchlist.php';
@@ -18,8 +21,8 @@
       // Protect route
       require '../../config/protect.php';
       
-      $watchlist->appartment_id = htmlspecialchars($_GET["appartment_id"]);
-
+      $watchlist->userId = $userId;
+      
       if($result = $watchlist->get()) {
         $response = [];
         while ($row = $result->fetch_assoc()) {
@@ -35,4 +38,3 @@
         array('message' => $e->getMessage())
       );
     }
-?>
