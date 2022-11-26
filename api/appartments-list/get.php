@@ -4,6 +4,9 @@
   header('Content-Type: application/json');
   header('Access-Control-Allow-Methods: GET');
   header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+  if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    exit('ok');
+  }
 
   require_once '../../config/Database.php';
   require_once '../../models/AppartmentsList.php';
@@ -17,8 +20,6 @@
     try {
       // Protect route
       require '../../config/protect.php';
-
-      $appartment->class_id = htmlspecialchars($_GET["class_id"]);
 
       if($result = $appartment->get()) {
         $response = [];

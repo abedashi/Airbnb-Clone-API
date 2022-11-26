@@ -13,7 +13,6 @@ class AppartmentsList {
     public $bedroom;
     public $bed;
     public $bath;
-    // public $created_at;
 
     public function __construct($db) {
         $this->conn = $db;
@@ -42,7 +41,10 @@ class AppartmentsList {
     public function get() {
         // Preapare statment
         $query = $this->conn->prepare(
-            "SELECT * FROM {$this->table}
+            "SELECT appartments_list.id, appName, address, guests, price, bedroom, bed, bath,
+                    lat, lng, wifi, parking, tv, ac, smoke, electricity, created_at,
+                    image1, image2, image3, image4, image5
+             FROM {$this->table}
                 JOIN users ON appartments_list.userId = users.id
                 JOIN coordinates ON appartments_list.id = coordinates.appartment_id
                 JOIN offers ON appartments_list.id = offers.appartment_id
@@ -59,7 +61,10 @@ class AppartmentsList {
     public function get_single() {
         // Preapare statment
         $query = $this->conn->prepare(
-            "SELECT * FROM {$this->table}
+            "SELECT appartments_list.id, username, appName, address, guests, price, bedroom, bed, bath,
+                lat, lng, wifi, parking, tv, ac, smoke, electricity, created_at,
+                image1, image2, image3, image4, image5
+            FROM {$this->table}
                 JOIN users ON appartments_list.userId = users.id
                 JOIN coordinates ON appartments_list.id = coordinates.appartment_id
                 JOIN offers ON appartments_list.id = offers.appartment_id
