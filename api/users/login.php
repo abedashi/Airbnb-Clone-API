@@ -51,7 +51,8 @@
         array(
           "id" => $user->id,
           "username" => $user->username,
-          "token" => $token
+          "token" => $token,
+          "exp" => "10800"
         )
       );
     } else {
