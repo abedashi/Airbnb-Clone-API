@@ -24,11 +24,9 @@
     
     if ($insertId = $watchlist->create()) {
       $watchlist->id = $insertId;
-
-      // $response = $watchlist->get();
-
+      $response = $watchlist->get(); 
       http_response_code(201);
-      // echo json_encode($response->fetch_assoc());
+      echo json_encode($response->fetch_assoc());
     } else {
       throw new Exception("watchlist Failed");
     }
