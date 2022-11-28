@@ -19,7 +19,7 @@
 
     try {
       // Protect route
-      require '../../config/protect.php';
+      // require '../../config/protect.php';
 
       $appartment->id = htmlspecialchars($_GET["id"]);
 
