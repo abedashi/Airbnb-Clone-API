@@ -73,7 +73,7 @@
       $images->id = $images->create();
 
       // $response = $appartment->get();
-
+      
       http_response_code(201);
       // echo json_encode($response->fetch_assoc());
     } else {
