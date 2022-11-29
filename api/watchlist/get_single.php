@@ -20,7 +20,7 @@
 
     require '../../config/protect.php';
     // get id
-
+    $watchlist->appartment_id = htmlspecialchars($_GET["appartment_id"]);
     $watchlist->userId = $userId;
   
     if($result = $watchlist->getSingle()) {

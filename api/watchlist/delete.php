@@ -3,6 +3,9 @@
   header('Content-Type: application/json');
   header('Access-Control-Allow-Methods: DELETE'); //DELETE, POST, GET, PUT
   header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+  if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    exit('ok');
+  }
 
   require_once '../../config/Database.php';
   require_once '../../models/Watchlist.php';
@@ -15,12 +18,10 @@
 
   try {
     require '../../config/protect.php';
-    $data = json_decode(file_get_contents("php://input"));
-    $watchlist->id = $data->id;
+    $watchlist->appartment_id = htmlspecialchars($_GET["appartmentId"]);
+    $watchlist->userId = $userId;
     $watchlist->delete();
   } catch (Exception $e) {
-
+    
   }
-
-
 ?>
