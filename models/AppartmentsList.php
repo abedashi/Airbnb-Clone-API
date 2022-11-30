@@ -61,7 +61,7 @@ class AppartmentsList {
     public function get_single() {
         // Preapare statment
         $query = $this->conn->prepare(
-            "SELECT appartments_list.id, username, appName, address, guests, price, bedroom, bed, bath,
+            "SELECT appartments_list.id, appartments_list.userId,  username, appName, address, guests, price, bedroom, bed, bath,
                 lat, lng, wifi, parking, tv, ac, smoke, electricity, created_at,
                 image1, image2, image3, image4, image5, users.image
             FROM {$this->table}

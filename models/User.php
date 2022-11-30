@@ -34,7 +34,7 @@ class User {
 
   public function updateProfile() {
     $query = $this->conn->prepare(
-      "UPDATE {$this->table} SET job= ?, about= ?, location= ?, language= ? WHERE id= ? "
+      "UPDATE {$this->table} SET job= ?, about= ?, location= ?, language= ? WHERE id= ?"
     );
 
     $query->bind_param("ssssi", $this->job, $this->about, $this->location, $this->language, $this->id);
@@ -48,8 +48,7 @@ class User {
 
   public function getProfile() {
     $query = $this->conn->prepare(
-      "SELECT users.id, username, image, job, about, location, language, joined_in FROM {$this->table} 
-        WHERE users.id = ?"
+      "SELECT * FROM {$this->table} WHERE users.id = ?"
     );
 
     $query->bind_param('i', $this->id);
