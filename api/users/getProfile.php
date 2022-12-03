@@ -20,8 +20,8 @@
     try {
       require '../../config/protect.php';
       
-      $user->id = htmlspecialchars($_GET["id"]);
-      // $user->id = $userId;
+      // $user->id = htmlspecialchars($_GET["id"]);
+      $user->id = $userId;
       
       if($result = $user->getProfile()) {
         http_response_code(200);
