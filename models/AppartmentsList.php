@@ -80,6 +80,24 @@ class AppartmentsList {
         return $response;
     }
 
+    public function get_single_user() {
+        // Preapare statment
+        $query = $this->conn->prepare(
+            "SELECT appartments_list.id, appName, image1, created_at
+             FROM {$this->table}
+                JOIN users ON appartments_list.userId = users.id
+                JOIN images ON appartments_list.id = images.appartment_id
+                WHERE users.id = ?
+                ORDER BY created_at DESC"
+        );
+        $query->bind_param('i', $this->userId);
+        // Execution 
+        if ($query->execute()) {
+            $result = $query->get_result();
+            return $result;
+        }
+    }
+
     public function delete() {
         $query = $this->conn->prepare(
             "DELETE FROM {$this->table} WHERE id = ?"

@@ -70,7 +70,7 @@ class User {
     $query->store_result();
 
     if ($query->num_rows > 0) {
-      throw new Exception("Email already exists");
+      throw new Exception("Username already exists");
     }
     if ($this->password !== $this->passwordConfirm) {
       throw new Exception("Password and Password Confirmation didn't matched");
