@@ -7,6 +7,8 @@ class Contact {
     public $id;
     public $userId;
     public $hostId;
+    public $message;
+    public $created_at;
 
     public function __construct($db) {
         $this->conn = $db;
@@ -14,10 +16,10 @@ class Contact {
 
     public function create() {
         $query = $this->conn->prepare(
-            "INSERT INTO {$this->table} (userId, hostId) VALUES (?, ?)"
+            "INSERT INTO {$this->table} (userId, hostId, message) VALUES (?, ?, ?)"
         );
 
-        $query->bind_param("ii", $this->userId, $this->hostId);
+        $query->bind_param("iis", $this->userId, $this->hostId, $this->message);
 
         if ($query->execute()) {
             return $query->insert_id;
@@ -28,9 +30,9 @@ class Contact {
 
     public function getSingle() {
         $query = $this->conn->prepare(
-            "SELECT username, image, contact.hostId FROM users
+            "SELECT username, image, contact.userId ,contact.hostId, contact.message, contact.created_at FROM users
                 JOIN contact ON contact.hostId = users.id
-             WHERE contact.hostId = ?"
+             WHERE contact.userId = ? ORDER BY created_at DESC"
         );
         $query->bind_param('i', $this->hostId);
         $query->execute();

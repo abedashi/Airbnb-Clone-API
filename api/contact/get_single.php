@@ -20,11 +20,15 @@ try {
 
   require '../../config/protect.php';
   // get 
-  $contact->hostId = htmlspecialchars($_GET["hostId"]);
+  $contact->hostId = htmlspecialchars($_GET["contactId"]);
 
-  if($result = $contact->getSingle()) {
+  if ($result = $contact->getSingle()) {
+    $response = [];
+    while ($row = $result->fetch_assoc()) {
+      $response[] = $row;
+    }
     http_response_code(200);
-    echo json_encode($result->fetch_assoc());
+    echo json_encode($response); 
   }
 } catch (Exception $e) {
   http_response_code(401);
